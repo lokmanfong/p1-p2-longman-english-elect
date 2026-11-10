@@ -19,11 +19,18 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: actions/configure-pages@v5
-      - name: Prepare web app
+      - name: Prepare verified garden release
         run: |
+          set -eu
+          cat garden-arcade-20261110.zip.part-00 garden-arcade-20261110.zip.part-01 garden-arcade-20261110.zip.part-02 garden-arcade-20261110.zip.part-03 > /tmp/garden-release.zip
+          echo "68e1e4c814398ec51c650c86a51cf8db7b06b2628ad4c7da5b126192325907a0  /tmp/garden-release.zip" | sha256sum -c -
           mkdir -p dist
-          unzip -q garden-pages.zip -d dist
-          unzip -oq garden-tap-audio2.zip -d dist
+          unzip -q /tmp/garden-release.zip -d dist
+          test -s dist/main.dart.js
+          test -s dist/assets/assets/art/celebration_poses.png
+          test -s dist/assets/assets/audio/arcade_rush.wav
+          grep -q '/english-flower-garden/' dist/index.html
+          grep -q 'macau-boy-public-20261110' dist/release.json
           touch dist/.nojekyll
       - uses: actions/upload-pages-artifact@v4
         with:
