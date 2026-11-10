@@ -34,7 +34,10 @@ jobs:
           touch dist/.nojekyll
       - uses: actions/upload-pages-artifact@v4
         with:
+          name: garden-pages-${{ github.run_id }}-${{ github.run_attempt }}
           path: dist
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: garden-pages-${{ github.run_id }}-${{ github.run_attempt }}
