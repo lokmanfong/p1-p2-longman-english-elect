@@ -34,9 +34,9 @@ jobs:
           path = Path('dist/index.html')
           html = path.read_text()
           assert '<base href="/english-flower-garden/">' in html
-          path.write_text(html.replace('<base href="/english-flower-garden/">', '<base href="/p3-p4-longman-english-elect/">'))
+          path.write_text(html.replace('<base href="/english-flower-garden/">', '<base href="/p1-p2-longman-english-elect/">'))
           PY
-          grep -q '/p3-p4-longman-english-elect/' dist/index.html
+          grep -q '/p1-p2-longman-english-elect/' dist/index.html
           grep -q 'macau-boy-public-20261110' dist/release.json
           touch dist/.nojekyll
       - uses: actions/upload-pages-artifact@v4
